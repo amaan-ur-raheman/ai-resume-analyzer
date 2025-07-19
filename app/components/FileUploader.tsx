@@ -30,7 +30,7 @@ const FileUploader = ({ file, onFileSelect }: FileUploaderProps) => {
 			<div {...getRootProps()}>
 				<input {...getInputProps()} />
 
-				<div className="space-y-4 cursor-pointer">
+				<div className="space-y-4 cursor-pointer bg-white rounded-2xl p-4">
 					{file ? (
 						<div
 							className="uploader-selected-file"

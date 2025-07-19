@@ -1,5 +1,5 @@
 import { prepareInstructions } from "../../constants";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router";
 import FileUploader from "~/components/FileUploader";
 import Navbar from "~/components/Navbar";
@@ -25,6 +25,10 @@ const Upload = () => {
 	const [isProcessing, setIsProcessing] = useState(false);
 	const [statusText, setStatusText] = useState("");
 	const [file, setFile] = useState<File | null>(null);
+
+	useEffect(() => {
+		if (!auth.isAuthenticated) navigate("/auth?next=/upload");
+	}, [auth.isAuthenticated]);
 
 	const handleFileSelect = (file: File | null) => {
 		setFile(file);
@@ -87,6 +91,7 @@ const Upload = () => {
 
 		setStatusText("Analysis complete, redirecting...");
 		console.log(data);
+		navigate(`/resume/${uuid}`);
 	};
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -118,7 +123,7 @@ const Upload = () => {
 							<h2 className="text-center">{statusText}</h2>
 							<div className="w-150 h-150 flex items-center justify-center">
 								<img
-									src="/images/resume-scan-2.gif"
+									src="/images/resume-scan.gif"
 									alt="Scanning resume"
 									className="w-full h-full object-contain"
 								/>
